@@ -1,0 +1,46 @@
+.generarColumns(@prefix, @columnas, @iteracion : 1)
+    when(@iteracion =< @columnas)
+{
+    @selector: ~'.col-@{prefix}@{iteracion}';
+    @ancho: (100% / @columnas * @iteracion);
+
+    @offset: ~'.offset-@{prefix}@{iteracion}';
+
+    @{selector} {
+        flex-basis: @ancho;
+    }
+    @{offset} {
+        margin-left: @ancho;
+    }
+
+    .generarColumns(@prefix, @columnas, (@iteracion + 1))
+}
+
+/*
+function generarColumns (prefix) {
+    let selector = `.col-${prefix}1`;
+    return `${selector} { flex-basis:100%}`;
+}
+*/
+
+
+.grid-container {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        [class*='col-'] {
+            flex:0,0;
+            border: 1px solid darken(@primary-text-color, 30%);
+        }
+        .generarColumns('', 12);
+        @media (min-width:720px){
+            .generarColumns('md-', 12);
+        }
+        @media (min-width:1025px){
+            .generarColumns('lg-', 12);
+        }
+        @media (min-width:1300px){
+            .generarColumns('xl-', 12);
+        }
+    }
+}
