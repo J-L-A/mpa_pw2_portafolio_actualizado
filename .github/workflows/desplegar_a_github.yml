@@ -9,7 +9,7 @@ permissions:
   pages: write
   id-token: write
 env:
-  GITHUB_BASE_URL: ${{vars.DEPLOY_BASE_URL}}
+  DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL}}
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -18,7 +18,7 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.github-pages.outputs.url }}
+      url: ${{ steps.github-pages.output.url }}
     runs-on: ubuntu-latest
     steps:
       - name: Clonar el Repositorio
@@ -27,15 +27,15 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-      - name: Instalar las dependencias del Proyecto
+      - name: Instalar las Dependencias del Proyecto
         run: npm install
       - name: Compilar la página para distribución
         run: npm run build
-      - name: Configurar Github Pages
+      - name: Configura Github Pages
         uses: actions/configure-pages@v5
-      - name: Subir los compilados (artefactos) a Github Pages
+      - name: Subir los compilados (artefactos) a GP
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
-      - name: Publicar en Github Pages
-        uses: actions/deploy-pages@v5
+          path: './dist'
+      - name: Publicar Github Pages
+        uses: actions/deploy-pages@v4
