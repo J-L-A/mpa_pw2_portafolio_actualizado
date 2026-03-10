@@ -1,6 +1,6 @@
 export default {
     "backgroundId": "110",
-    "actionMessage": "Hola Mundo desde Index",
+    "actionMessage": "Subido por Jurgen Lambur",
     "index_gallery-item": [
         {
             "item-img": "https://picsum.photos/id/40/280/280",
